@@ -110,8 +110,8 @@ def treat_data(X_sim,X_real):
     dim_sim = np.shape(X_sim)
     dim_real = np.shape(X_real)
 
-    X_sim_residual = np.zeros((dim_sim[0],dim_sim[1],dim_sim[2] + 6))
-    X_real_residual = np.zeros((dim_real[0],dim_real[1],dim_real[2] + 6))
+    X_sim_residual = np.zeros((dim_sim[0],dim_sim[1],dim_sim[2] + 9))
+    X_real_residual = np.zeros((dim_real[0],dim_real[1],dim_real[2] + 9))
 
 
     X_sim_residual[:,:,:6] = X_sim
