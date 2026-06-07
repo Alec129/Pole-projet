@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 ```bash
 git clone https://github.com/Alec129/Pole-projet/
-cd <Pole-projet>
+cd Pole-projet
 ```
 
 
