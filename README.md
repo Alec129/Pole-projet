@@ -59,7 +59,7 @@ sbatch Transfer-learning/lancer-calcul.sh
 ```bash
 sbatch scripts/submit_cv5.sh
 ```
-- - Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pretrained_cv.pt)
+  - Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pretrained_cv.pt)
 
 
 ### Cas d'usage
