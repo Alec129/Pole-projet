@@ -11,7 +11,9 @@
 ## ✨ Work achieved 
 
 > Increase the number of training data
-> Add some noise to have a closer distribution of the simulated data. 
+> Add some noise to have a closer distribution of the simulated data.
+> First version of transfer training
+> An ameliorated version of transfer learning with corss validation
 
 
 
@@ -20,7 +22,7 @@
 ### Prérequis
 
 - Matlab 
-- Accès to La Ruche
+- Access to La Ruche
 
 ## Lancer un environnement sur La Ruche
 
@@ -45,11 +47,19 @@ cd Pole-projet
 
 
 ### Lancer le projet
-On La Ruche run the following command
+The repository includes a submission script to run the cross-validation job on La Ruche:
+From the repository root on La Ruche, submit the job with:
+
+- First Version of transfer learning
 ```bash
 sbatch Transfer-learning/lancer-calcul.sh
 ```
 
+- Last version of transfer learning with cross validation
+```bash
+sbatch scripts/submit_cv5.sh
+```
+- - Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pretrained_cv.pt)
 
 
 ### Cas d'usage
