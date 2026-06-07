@@ -84,8 +84,8 @@ def import_data(link : str ,link_test : str):
     return data_X, data_Y, data_test_X, data_test_Y
 
 '''
-link = './Transfer-learning/mydataset/my_dataset_train.mat'
-link_test = './Transfer-learning/mydataset/my_dataset_test.mat'
+link = '..mydataset/my_dataset_train.mat'
+link_test = '..mydataset/my_dataset_test.mat'
 
 X_sim, Y_sim, X_real, Y_real = import_data(link,link_test)
 '''
@@ -120,8 +120,8 @@ def import_data_2():
 
     return data_X, data_Y
 
-link = './Transfer-learning/mydataset/my_dataset_train.mat'
-link_test = './Transfer-learning/mydataset/my_dataset_test.mat'
+link = '..mydataset/my_dataset_train.mat'
+link_test = '..mydataset/my_dataset_test.mat'
 
 X_sim_1, Y_sim_1, X_real, Y_real = import_data(link,link_test)
 X_sim_2, Y_sim_2 = import_data_2()
