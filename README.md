@@ -1,35 +1,31 @@
 # Digital Twin for Fault Diagnosis
 
-> This project was aiming to train an AI model to detect failure on a 4 motors robot. In fact, the model is train on a large simulated dataset and is use on real data. The gap between the two distribution brings a drop in the performance of the previous models.
+> Ce projet vise à entraîner un modèle d'IA pour détecter des pannes sur un robot à 4 moteurs. Le modèle est entraîné sur un large jeu de données simulé et utilisé sur des données réelles. L'écart entre les deux distributions entraîne une baisse des performances des modèles précédents.
 
-# The Problematic 
+# La Problématique
 
-> So, the main objective of the project was to increase the accuracy of the model on the real data. 
+> L'objectif principal du projet est d'augmenter la précision du modèle sur les données réelles.
 
+## ✨ Travaux réalisés
 
-
-## ✨ Work achieved 
-
-> Increase the number of training data
-> Add some noise to have a closer distribution of the simulated data.
-> First version of transfer training
-> An ameliorated version of transfer learning with corss validation
-
-
+> Augmentation du volume de données d'entraînement
+> Ajout de bruit pour rapprocher la distribution des données simulées.
+> Première version du transfer learning
+> Une version améliorée du transfer learning avec validation croisée
 
 ## 🚀 Installation
 
 ### Prérequis
 
-- Matlab 
-- Access to La Ruche
+- Matlab
+- Accès à La Ruche
 
 ## Lancer un environnement sur La Ruche
 
 ```bash
 module load anaconda3/2023.09-0/none-none
 conda create -n my_env
-source activate my _env
+source activate my_env
 ```
 
 ### Installer les dépendances
@@ -45,72 +41,48 @@ git clone https://github.com/Alec129/Pole-projet/
 cd Pole-projet
 ```
 
-
 ### Lancer le projet
-The repository includes a submission script to run the cross-validation job on La Ruche:
-From the repository root on La Ruche, submit the job with:
 
-- First Version of transfer learning
+Le dépôt inclut un script de soumission pour exécuter le job de validation croisée sur La Ruche.
+Depuis la racine du dépôt sur La Ruche, soumettez le job avec :
+
+- Première version du transfer learning
+
 ```bash
 sbatch Transfer-learning/lancer-calcul.sh
 ```
-To see the result of the training open the file confusion_matric_real_rf.png and confusion_matric_rf.png
 
-- Last version of transfer learning with cross validation
+Pour visualiser les résultats de l'entraînement, ouvrez les fichiers `confusion_matric_real_rf.png` et `confusion_matric_rf.png`.
+
+- Dernière version du transfer learning avec validation croisée
+
 ```bash
 sbatch scripts/submit_cv5.sh
 ```
-Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pretrained_cv.pt)
 
-### Performance 
-- The transfer learning model achieves an accuracy of 83.33% ± 7.86%.
-- Confusion matrix (5-fold CV):
+Des exemples de checkpoints entraînés se trouvent dans `scripts/` (ex. `best_finetuned_cv.pt`, `best_pretrained_cv.pt`).
 
-![Confusion matrix](scripts/cm_cv5fold.png)
+### Performances
 
-## 📁 Structure du projet
+- Le modèle de transfer learning atteint une précision de **83,33 % ± 7,86 %**.
+- Matrice de confusion (validation croisée à 5 plis) :
 
-```text
-project/
-├── Transfer-learning/
-│   ├── mydataset/
-|   |   ├── Healthy/
-|   |   ├── Motor_1_Stuck/
-|   |   ├── Motor_1_Steady_state_error/
-|   |   ├── Motor_2_Stuck/
-|   |   ├── Motor_2_Steady_state_error/
-|   |   ├── Motor_3_Stuck/
-|   |   ├── Motor_3_Steady_state_error/
-|   |   ├── Motor_4_Stuck/
-|   |   ├── Motor_4_Steady_state_error/
-│   ├── lancer-calcul.sh/
-│   ├── transfer-learning-vf.py/
-│   ├── models.py/
-├── requirements.txt/
-└── README.md
-```
+![Matrice de confusion](scripts/cm_cv5fold.png)
 
 ### Description des dossiers
 
 | Dossier/Fichier | Description |
-|----------|------------|
-| src/Transfer-learning | All the code to run the transfer learning method|
-| src/Transfer-learning/mydataset | Contain all the data to train the model |
-| src/Transfer-learning/lancer-calcul.sh | file to start the calcul on La Ruche |
-| src/Transfer-learning/transfer-learning.py | code of the transfer learning method |
-| src/Transfer-learning/models.py | file of the model of the CNN 1D and LSTM |
-
-
-
-
-## 👤 Auteur
-
-**Alec BEOLET**
-
-
+|---|---|
+| src/Transfer-learning | Tout le code pour exécuter la méthode de transfer learning |
+| src/Transfer-learning/lancer-calcul.sh | Fichier pour lancer le calcul sur La Ruche |
+| src/Transfer-learning/transfer-learning.py | Code de la méthode de transfer learning |
+| src/Transfer-learning/models.py | Fichier du modèle CNN 1D et LSTM |
+| src/mydataset | Contient toutes les données pour entraîner et tester le modèle |
+| src/scripts | Contient les fichiers pour le modèle de transfer learning optimisé |
+| src/dtr digital model simulink | Contient le notebook Matlab pour le modèle LSTM entraîné sur un jeu de données doublé |
 
 ---
 
 ## 🙏 Remerciements
 
-- Laboratoire génie industriel de CentraleSupélec
+- Laboratoire Génie Industriel de CentraleSupélec
