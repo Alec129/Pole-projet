@@ -66,6 +66,8 @@ Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pre
 - The transfer learning model achieves an accuracy of 83.33% ± 7.86%.
 - Confusion matrix (5-fold CV):
 
+![Confusion matrix](scripts/cm_cv5fold.png)
+
 ## 📁 Structure du projet
 
 ```text
