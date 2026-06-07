@@ -54,19 +54,17 @@ From the repository root on La Ruche, submit the job with:
 ```bash
 sbatch Transfer-learning/lancer-calcul.sh
 ```
+To see the result of the training open the file confusion_matric_real_rf.png and confusion_matric_rf.png
 
 - Last version of transfer learning with cross validation
 ```bash
 sbatch scripts/submit_cv5.sh
 ```
-  - Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pretrained_cv.pt)
+Example trained checkpoints are in scripts/ (e.g. best_finetuned_cv.pt, best_pretrained_cv.pt)
 
-
-### Cas d'usage
-
-To see the result of the training open the file confusion_matric_real_rf.png and confusion_matric_rf.png
-
----
+### Performance 
+- The transfer learning model achieves an accuracy of 83.33% ± 7.86%.
+- Confusion matrix (5-fold CV):
 
 ## 📁 Structure du projet
 
