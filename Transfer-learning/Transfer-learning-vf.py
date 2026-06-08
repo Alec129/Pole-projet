@@ -83,14 +83,9 @@ def import_data(link : str ,link_test : str):
     
     return data_X, data_Y, data_test_X, data_test_Y
 
-'''
-link = '..mydataset/my_dataset_train.mat'
-link_test = '..mydataset/my_dataset_test.mat'
-
-X_sim, Y_sim, X_real, Y_real = import_data(link,link_test)
-'''
 
 def import_data_2():
+    # import data for the augmented dataset
     data_X = np.zeros((3600,1000,6))
     data_Y = np.zeros(3600)
     
@@ -122,12 +117,15 @@ def import_data_2():
 
 link = '..mydataset/my_dataset_train.mat'
 link_test = '..mydataset/my_dataset_test.mat'
+# Data set initial 
+X_sim, Y_sim, X_real, Y_real = import_data(link,link_test)
 
-X_sim_1, Y_sim_1, X_real, Y_real = import_data(link,link_test)
-X_sim_2, Y_sim_2 = import_data_2()
+## Data set augmente
+#X_sim_1, Y_sim_1, X_real, Y_real = import_data(link,link_test)
+#X_sim_2, Y_sim_2 = import_data_2()
 
-X_sim = np.concatenate((X_sim_1,X_sim_2))
-Y_sim = np.concatenate((Y_sim_1,Y_sim_2))
+#X_sim = np.concatenate((X_sim_1,X_sim_2))
+#Y_sim = np.concatenate((Y_sim_1,Y_sim_2))
 
 def normalize(data : np.ndarray) -> np.ndarray:
     """normalize data 
@@ -145,7 +143,7 @@ def normalize(data : np.ndarray) -> np.ndarray:
     return mean,std
 
 def treat_data(X_sim,X_real):
-    # add the residual to vector (residual = trajectory without error - trajectory with error)
+    # add the residual to vector (residual = trajectory without error - trajectory with error) and the derivated of the residual
     dim_sim = np.shape(X_sim)
     dim_real = np.shape(X_real)
 
@@ -170,15 +168,9 @@ def treat_data(X_sim,X_real):
 
 X_sim_residual, X_real_residual = treat_data(X_sim,X_real)
 
-'''
-print("tensor X:",np.shape(X_sim_residual))
-print("tensor Y:", Y_sim)
-print("tensor X real:", np.shape(X_real_residual))
-print("tensor Y real:", np.shape(Y_real))
-'''
 
 def split_data(X,Y,test_size):
-    # split the data into 
+    # split the data into test and train
     X_train, X_test, y_train, y_test = train_test_split(X,Y,test_size = test_size,random_state=42,stratify=Y)
 
     return X_train, X_test, y_train, y_test
@@ -188,21 +180,10 @@ test_size_real = 0.2
 X_sim_train, X_sim_test, Y_sim_train, Y_sim_test = split_data(X_sim_residual,Y_sim,test_size_sim)
 X_real_train, X_real_test, Y_real_train, Y_real_test = split_data(X_real_residual,Y_real,test_size_real)
 
-'''
-print(np.shape(X_sim_train))
-print(np.shape(Y_sim_test))
-print(np.unique(Y_sim_train, return_counts=True))
-print(np.unique(Y_sim_test, return_counts=True))
-'''
+# Normalization
 mean, std = normalize(X_sim_train)
 X_sim_train_normalize  = (X_sim_train - mean)/std
 X_sim_test_normalize = (X_sim_test - mean)/std
-
-'''
-print(np.shape(X_sim_train_normalize))
-print(np.shape(X_real_train_normalize))
-'''
-
 
 
 # We use datatensor 
@@ -210,16 +191,6 @@ X_sim_train_data = torch.tensor(X_sim_train_normalize, dtype=torch.float32)
 Y_sim_train_data = torch.tensor(Y_sim_train, dtype=torch.long)
 X_sim_test_data = torch.tensor(X_sim_test_normalize, dtype=torch.float32)
 Y_sim_test_data = torch.tensor(Y_sim_test, dtype=torch.long)
-
-'''
-X_sim_train_flat = X_sim_train.reshape(X_sim_train.shape[0], -1)
-Y_sim_flat = Y_sim_train.ravel()
-X_sim_test_flat  = X_sim_test.reshape(X_sim_test.shape[0], -1)
-Y_sim_test_flat = Y_sim_test.ravel()
-
-X_real_train_flat = X_real_residual.reshape(X_real_residual.shape[0], -1)
-Y_real_flat = Y_real.ravel()
-'''
 
 
 # Dataloader
@@ -234,14 +205,7 @@ training_loader = DataLoader(train_dataset, batch_size=batch, shuffle=True,num_w
 validation_loader = DataLoader(val_dataset, batch_size=batch, shuffle=False,num_workers=num_cpus)
 
 
-#We use a LSTM to do the training
-'''
-model = LSTMModel(
-    input_size=15,        # features
-    hidden_size=128,
-    num_classes = 9
-)'''
-
+#We use a CNN to do the training
 model = ComplexCNN(input_size = 15, num_classes = 9, num_channels =32, kernel_size=2, dropout=0.2)
 
 # We use the fonction loss CrossEntropy 
@@ -294,6 +258,7 @@ EPOCHS = 70
 
 best_vloss = 1000000
 
+# first training
 for epoch in range(EPOCHS):
     print('EPOCH {}:'.format(epoch_number + 1))
 
@@ -391,6 +356,7 @@ best_vloss = 1000000
 EPOCHS = 40
 model_real_path = None
 
+# second training
 for epoch in range(EPOCHS):
     #print(f'TRANSFER EPOCH {epoch + 1}:')
     
