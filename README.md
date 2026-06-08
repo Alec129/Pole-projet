@@ -73,6 +73,7 @@ Des exemples de checkpoints entraînés se trouvent dans `scripts/` (ex. `best_f
 
 | Dossier/Fichier | Description |
 |---|---|
+|src/Training | Contient les codes de models pour comprendre comment construire un code d'IA (Random Forest et LSTM)|
 | src/Transfer-learning | Tout le code pour exécuter la méthode de transfer learning |
 | src/Transfer-learning/lancer-calcul.sh | Fichier pour lancer le calcul sur La Ruche |
 | src/Transfer-learning/transfer-learning.py | Code de la méthode de transfer learning |
