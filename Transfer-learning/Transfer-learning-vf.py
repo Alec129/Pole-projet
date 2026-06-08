@@ -93,15 +93,15 @@ def import_data_2():
         l = [0,1,3,5,7].index(i)
         for j in range(400):
             if i == 0:
-                link = './Transfer-learning/mydataset/Healthy/dataset_' + str(j + 1) + '.mat'
+                link = '../mydataset/Healthy/dataset_' + str(j + 1) + '.mat'
                 mat = scipy.io.loadmat(link)
                 data_X[i*400 + j,:,:3] = np.array(mat['trajCmds'])
                 data_X[i*400 + j,:,3:6] = np.array(mat['trajResps'])
                 data_Y[i*400 + j] = i
 
             else : 
-                link_1 = './Transfer-learning/mydataset/Motor_' + str(l) + '_Steady_state_error/dataset_' + str(j + 1) + '.mat'
-                link_2 = './Transfer-learning/mydataset/Motor_' + str(l) + '_Stuck/dataset_' + str(j + 1) + '.mat'
+                link_1 = '../mydataset/Motor_' + str(l) + '_Steady_state_error/dataset_' + str(j + 1) + '.mat'
+                link_2 = '..mydataset/Motor_' + str(l) + '_Stuck/dataset_' + str(j + 1) + '.mat'
                 mat = scipy.io.loadmat(link_1)
                 data_X[i*400 + j,:,:3] = np.array(mat['trajCmds'])
                 data_X[i*400 + j,:,3:6] = np.array(mat['trajResps'])
@@ -115,8 +115,8 @@ def import_data_2():
 
     return data_X, data_Y
 
-link = '..mydataset/my_dataset_train.mat'
-link_test = '..mydataset/my_dataset_test.mat'
+link = '../mydataset/my_dataset_train.mat'
+link_test = '../mydataset/my_dataset_test.mat'
 # Data set initial 
 X_sim, Y_sim, X_real, Y_real = import_data(link,link_test)
 
